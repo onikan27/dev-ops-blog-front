@@ -1,45 +1,28 @@
-import { NextPage } from 'next'
 import Head from 'next/head'
+import { Flex, Box } from '@chakra-ui/layout'
+import { DefaultLayout } from 'src/components/layout/DefaultLayout'
+import { RightSideBar } from 'src/components/molecules/RightSideBar'
 
-type Article = {
-  id: string
-  title: string
-  body: string
-}
-
-type props = {
-  articles: Article[]
-}
-
-const Home: React.FC<props> = ({ articles }) => {
+const Home: React.FC = ({ children }) => {
   return (
     <>
       <Head>
         <title>Blog</title>
         <link rel="icon" href="/favicon.ico" />
       </Head>
-      {articles.map((article) => (
-        <div key={article.id}>
-          <h1>{article.title}</h1>
-          <p>{article.id}</p>
-        </div>
-      ))}
+      <DefaultLayout>
+        <Box bgColor="bg.gray">
+          <Flex maxW="1000px" mx="auto" flexDirection="column">
+            <Flex justifyContent="space-between">
+              <Box>メインコンテンツ</Box>
+              {/* {children} */}
+              <RightSideBar />
+            </Flex>
+          </Flex>
+        </Box>
+      </DefaultLayout>
     </>
   )
-}
-
-export const getStaticProps = async () => {
-  const key = {
-    headers: { 'X-API-KEY': process.env.API_KEY || '' },
-  }
-
-  const res = await fetch(`${process.env.API_ENDPOINT}/articles`, key)
-  const data = await res.json()
-  return {
-    props: {
-      articles: data.contents,
-    },
-  }
 }
 
 export default Home

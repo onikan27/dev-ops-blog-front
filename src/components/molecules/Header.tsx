@@ -29,11 +29,22 @@ export const Header: React.FC<headerType> = ({ topics }) => {
           color="link.gray"
           fontWeight="bold"
         >
-          {topics.map((el) => (
-            <Box key={el} _hover={{ color: '#7d7d7d' }} fontSize="18px">
-              <Link href={`/articles/${el}`}>{el}</Link>
-            </Box>
-          ))}
+          <Box _hover={{ color: '#7d7d7d' }} fontSize="18px">
+            <Link href={`/articles/app`}>App</Link>
+          </Box>
+          <Box _hover={{ color: '#7d7d7d' }} fontSize="18px">
+            <Link href={`/articles/infra`}>Infra</Link>
+          </Box>
+          <Box _hover={{ color: '#7d7d7d' }} fontSize="18px">
+            <Link href={`/articles/devops`}>DevOps</Link>
+          </Box>
+          <Box _hover={{ color: '#7d7d7d' }} fontSize="18px">
+            <Link href={`/articles/other`}>Other</Link>
+          </Box>
+          {/* onikan.comリンク */}
+          <Box _hover={{ color: '#7d7d7d' }} fontSize="18px">
+            <Link href="https://onikan.com/">MyProfile</Link>
+          </Box>
         </Flex>
       </Flex>
     </Box>

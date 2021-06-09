@@ -10,10 +10,10 @@ type tagsType = {
 
 export const Tags: React.FC<tagsType> = ({ tags }) => {
   return (
-    <Box bg="white.white" p="24px">
+    <Box bg="white.white" p="24px" borderRadius="8px">
       <Box mb="24px">
         <Text fontSize="20px" fontWeight="bold">
-          Topics
+          Tags
         </Text>
       </Box>
       <Flex flexWrap="wrap">

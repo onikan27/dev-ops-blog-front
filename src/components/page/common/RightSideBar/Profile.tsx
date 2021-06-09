@@ -4,9 +4,9 @@ import Link from 'next/link'
 
 export const Profile: React.FC = () => {
   return (
-    <Box bg="white.white" p="24px">
+    <Box bg="white.white" p="24px" borderRadius="8px">
       <Box w="100px" h="100px" borderRadius="100%" mx="auto">
-        <Image src="Image/golang.png" />
+        <Image src="/Image/golang.png" />
       </Box>
       <Box mb="8px" mt="16px">
         <Text fontSize="18px" fontWeight="bold">

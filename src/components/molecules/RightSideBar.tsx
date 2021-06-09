@@ -16,14 +16,14 @@ const tags = [{ name: 'Rails' }, { name: 'React' }, { name: 'JavaScript' }]
 export const RightSideBar: React.FC = () => {
   return (
     <Box maxW="280px" w="100%">
-      <Box mb="32px">
+      <Box mb="32px" boxShadow="0 1px 8px 0 rgb(0 0 0 / 15%)">
         <Profile />
       </Box>
-      <Box Box mb="32px">
+      <Box mb="32px" boxShadow="0 1px 8px 0 rgb(0 0 0 / 15%)">
         <Topics topics={topics} />
       </Box>
       {/* タグ */}
-      <Box>
+      <Box boxShadow="0 1px 8px 0 rgb(0 0 0 / 15%)">
         <Tags tags={tags} />
       </Box>
     </Box>

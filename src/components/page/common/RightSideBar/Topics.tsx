@@ -11,7 +11,7 @@ type topicsType = {
 
 export const Topics: React.FC<topicsType> = ({ topics }) => {
   return (
-    <Box bg="white.white" p="24px">
+    <Box bg="white.white" p="24px" borderRadius="8px">
       <Box mb="24px">
         <Text fontSize="20px" fontWeight="bold">
           Topics

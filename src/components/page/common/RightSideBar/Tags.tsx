@@ -1,11 +1,9 @@
 import { Box, Text, Flex } from '@chakra-ui/react'
 import Tag from 'src/components/atoms/Tag'
+import { TagType } from 'types'
 
 type tagsType = {
-  tags: {
-    // TODO：enumにする。
-    name: string
-  }[]
+  tags: TagType[]
 }
 
 export const Tags: React.FC<tagsType> = ({ tags }) => {
@@ -18,7 +16,7 @@ export const Tags: React.FC<tagsType> = ({ tags }) => {
       </Box>
       <Flex flexWrap="wrap">
         {tags.map((tag) => (
-          <Tag tag={tag} key={tag.name} />
+          <Tag tag={tag} key={tag.id} />
         ))}
       </Flex>
     </Box>

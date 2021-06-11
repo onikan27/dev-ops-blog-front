@@ -1,14 +1,12 @@
 import { Text } from '@chakra-ui/react'
 import Link from 'next/link'
+import { TagType } from 'types'
 
-type TagType = {
-  tag: {
-    // TODO：enumにする。
-    name: string
-  }
+type props = {
+  tag: TagType
 }
 
-const Tag = ({ tag }: TagType) => {
+const Tag: React.FC<props> = ({ tag }) => {
   return (
     // TODO: Link設置
     <Link href="/">
@@ -24,7 +22,7 @@ const Tag = ({ tag }: TagType) => {
         cursor="pointer"
         _hover={{ backgroundColor: '#b0f7cf' }}
       >
-        {tag.name}
+        {tag.tagName}
       </Text>
     </Link>
   )

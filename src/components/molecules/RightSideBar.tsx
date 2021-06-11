@@ -3,6 +3,7 @@ import Link from 'next/link'
 import { Profile } from 'src/components/page/common/RightSideBar/Profile'
 import { Topics } from 'src/components/page/common/RightSideBar/Topics'
 import { Tags } from 'src/components/page/common/RightSideBar/Tags'
+import { TagType } from 'types'
 
 const topics = [
   { name: 'App', count: 10 },
@@ -11,9 +12,11 @@ const topics = [
   { name: 'Other', count: 5 },
 ]
 
-const tags = [{ name: 'Rails' }, { name: 'React' }, { name: 'JavaScript' }]
+type props = {
+  tags: TagType[]
+}
 
-export const RightSideBar: React.FC = () => {
+export const RightSideBar: React.FC<props> = ({ tags }) => {
   return (
     <Box maxW="280px" w="100%">
       <Box mb="32px" boxShadow="0 1px 8px 0 rgb(0 0 0 / 15%)">

@@ -19,7 +19,7 @@ const Home: React.FC = ({ children }) => {
                 Other
               </Text>
             </Box>
-            <Articles />
+            {/* <Articles /> */}
           </Flex>
         </MainLayout>
       </DefaultLayout>

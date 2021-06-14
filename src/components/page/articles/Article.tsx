@@ -9,7 +9,7 @@ type props = {
 
 export const Article: React.FC<props> = ({ article }) => {
   return (
-    <Link href="/">
+    <Link href={`/articles/${article.id}`}>
       <Flex
         bg="white.white"
         w="100%"

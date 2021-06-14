@@ -1,8 +1,8 @@
 import { Box, Text, Flex, Grid, Image } from '@chakra-ui/react'
 import Link from 'next/link'
-import { Profile } from 'src/components/page/common/RightSideBar/Profile'
-import { Topics } from 'src/components/page/common/RightSideBar/Topics'
-import { Tags } from 'src/components/page/common/RightSideBar/Tags'
+import { Profile } from 'src/components/page/RightSideBar/Profile'
+import { Topics } from 'src/components/page/RightSideBar/Topics'
+import { Tags } from 'src/components/page/RightSideBar/Tags'
 import { TagType } from 'types'
 
 const topics = [

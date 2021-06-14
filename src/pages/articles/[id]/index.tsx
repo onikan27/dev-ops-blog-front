@@ -34,12 +34,14 @@ const App: NextPage<props> = ({ articles, tags }) => {
   )
 }
 
-export const getStaticProps: GetStaticProps = async () => {
+export const getStaticProps: GetStaticProps = async (context) => {
   const key = ApiKey()
+  const id = context?.params?.id as string
   const resArticles = await fetch(
-    `${process.env.NEXT_PUBLIC_ENDPOINT}/articles`,
+    `${process.env.NEXT_PUBLIC_ENDPOINT}/articles?id[equals]${id}`,
     key,
   )
+
   const articles = await resArticles.json()
 
   const resTags = await fetch(`${process.env.NEXT_PUBLIC_ENDPOINT}/tags`, key)

@@ -8,14 +8,15 @@ import { ArticleType } from 'types'
 import { TagType } from 'types'
 import { ApiKey } from 'utils/api-key'
 import { RightSideBar } from 'src/components/molecules/RightSideBar'
+import { Contents } from 'src/components/page/articles/contents'
 import axios from 'axios'
 
 type props = {
-  articles: ArticleType[]
+  article: ArticleType
   tags: TagType[]
 }
 
-const App: NextPage<props> = ({ articles, tags }) => {
+const App: NextPage<props> = ({ article, tags }) => {
   return (
     <>
       <Head>
@@ -25,7 +26,7 @@ const App: NextPage<props> = ({ articles, tags }) => {
       <DefaultLayout>
         <MainLayout>
           <Flex flexDirection="column">
-            <Articles articles={articles} />
+            <Contents article={article} />
           </Flex>
           <RightSideBar tags={tags} />
         </MainLayout>
@@ -49,7 +50,7 @@ export const getStaticProps: GetStaticProps = async (context) => {
 
   return {
     props: {
-      articles: articles.contents,
+      article: articles.contents[0],
       tags: tags.contents,
     },
   }

@@ -20,6 +20,7 @@ const Tag: React.FC<props> = ({ tag }) => {
         mb="8px"
         mr="8px"
         cursor="pointer"
+        fontWeight="600"
         _hover={{ backgroundColor: '#b0f7cf' }}
       >
         {tag.tagName}

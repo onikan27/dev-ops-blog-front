@@ -1,4 +1,4 @@
-import { Text } from '@chakra-ui/react'
+import { Text, Image, Box } from '@chakra-ui/react'
 import Link from 'next/link'
 import { TagType } from 'types'
 
@@ -10,7 +10,10 @@ const Tag: React.FC<props> = ({ tag }) => {
   return (
     // TODO: Link設置
     <Link href="/">
-      <Text
+      <Box w="40px">
+        <Image src={`/Icon/${tag.tagName}.svg`} />
+      </Box>
+      {/* <Text
         borderRadius="32px"
         borderWidth="1px"
         backgroundColor="brand.secondary"
@@ -23,7 +26,7 @@ const Tag: React.FC<props> = ({ tag }) => {
         _hover={{ backgroundColor: '#b0f7cf' }}
       >
         {tag.tagName}
-      </Text>
+      </Text> */}
     </Link>
   )
 }

@@ -42,7 +42,9 @@ export const Article: React.FC<props> = ({ article }) => {
           </Box>
           <Flex flexWrap="wrap" alignItems="center">
             {article.tags.map((tag) => (
-              <Tag tag={tag} key={tag.id} />
+              <Box key={tag.id} mr="8px">
+                <Tag tag={tag} />
+              </Box>
             ))}
           </Flex>
           <Box position="absolute" right="16px" bottom="8px">

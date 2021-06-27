@@ -30,16 +30,16 @@ export const Header: React.FC<headerType> = ({ topics }) => {
           fontWeight="bold"
         >
           <Box _hover={{ color: '#7d7d7d' }} fontSize="18px">
-            <Link href={`/articles/app`}>App</Link>
+            <Link href={`/topics/app`}>App</Link>
           </Box>
           <Box _hover={{ color: '#7d7d7d' }} fontSize="18px">
-            <Link href={`/articles/infra`}>Infra</Link>
+            <Link href={`/topics/infra`}>Infra</Link>
           </Box>
           <Box _hover={{ color: '#7d7d7d' }} fontSize="18px">
-            <Link href={`/articles/devops`}>DevOps</Link>
+            <Link href={`/topics/devops`}>DevOps</Link>
           </Box>
           <Box _hover={{ color: '#7d7d7d' }} fontSize="18px">
-            <Link href={`/articles/other`}>Other</Link>
+            <Link href={`/topics/other`}>Other</Link>
           </Box>
           {/* onikan.comリンク */}
           <Box _hover={{ color: '#7d7d7d' }} fontSize="18px">

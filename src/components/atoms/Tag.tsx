@@ -10,7 +10,7 @@ const Tag: React.FC<props> = ({ tag }) => {
   return (
     // TODO: Link設置
     <Link href="/">
-      <Box w="40px">
+      <Box w="30px">
         <Image src={`/Icon/${tag.tagName}.svg`} />
       </Box>
       {/* <Text

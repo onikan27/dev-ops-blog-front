@@ -14,7 +14,7 @@ export const Tags: React.FC<tagsType> = ({ tags }) => {
           Tags
         </Text>
       </Box>
-      <Flex flexWrap="wrap">
+      <Flex flexWrap="wrap" alignItems="center">
         {tags.map((tag) => (
           <Tag tag={tag} key={tag.id} />
         ))}

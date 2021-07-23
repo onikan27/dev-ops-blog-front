@@ -31,7 +31,7 @@ export const Contents: React.FC<props> = ({ article }) => {
           <Text color="text.gray">{article.description}</Text>
         </Box>
         {article?.thumbnail?.url && (
-          <Box>
+          <Box mb="32px">
             <Image src={article?.thumbnail?.url} objectFit="fill" />
           </Box>
         )}

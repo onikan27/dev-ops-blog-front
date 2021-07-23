@@ -15,8 +15,8 @@ export const Profile: React.FC = () => {
       </Box>
       <Box mb="24px">
         <Text fontSize="14px" color="text.gray">
-          SaaSスタートアップのエンジニア,PM,執行役員。｜20歳｜スタートアップ←ベンチャー←休学←法政経済｜エンジニアリング,サービス開発,スタートアップについて呟きます。｜最近はRailsとNext.jsのSPA開発したり、React
-          Nativeでアプリ開発したり、AWSでインフラ担当してます。｜DevOpsが好き。
+          SaaSスタートアップのエンジニアと執行役員をしています。｜スタートアップ←ベンチャー←休学←法政大学・経済学部｜最近はRailsとNext.jsのSPA開発したり、React
+          Nativeでアプリ開発したり、AWSでインフラ担当してます。｜DevOpsが好き。｜
         </Text>
       </Box>
       <Link href="https://onikan.com/">

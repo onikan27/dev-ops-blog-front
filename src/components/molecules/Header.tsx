@@ -2,11 +2,7 @@ import { Box, Text, Flex, Input } from '@chakra-ui/react'
 import Logo from 'src/components/atoms/Logo'
 import Link from 'next/link'
 
-type headerType = {
-  topics: string[]
-}
-
-export const Header: React.FC<headerType> = ({ topics }) => {
+export const Header: React.FC = () => {
   return (
     <Box
       borderBottomWidth="1px"
@@ -52,7 +48,7 @@ export const Header: React.FC<headerType> = ({ topics }) => {
             _hover={{ color: '#7d7d7d' }}
             fontSize={{ sm: '14px', md: '18px' }}
           >
-            <Link href={`/topics/other`}>Other</Link>
+            <Link href={`/topics/others`}>Others</Link>
           </Box>
           {/* onikan.comリンク */}
           <Box

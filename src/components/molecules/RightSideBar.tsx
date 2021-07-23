@@ -5,13 +5,6 @@ import { Topics } from 'src/components/page/RightSideBar/Topics'
 import { Tags } from 'src/components/page/RightSideBar/Tags'
 import { TagType } from 'types'
 
-const topics = [
-  { name: 'App', count: 10 },
-  { name: 'Infra', count: 9 },
-  { name: 'DevOps', count: 12 },
-  { name: 'Other', count: 5 },
-]
-
 type props = {
   tags: TagType[]
   topics: any

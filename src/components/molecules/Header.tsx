@@ -8,7 +8,12 @@ type headerType = {
 
 export const Header: React.FC<headerType> = ({ topics }) => {
   return (
-    <Box borderBottomWidth="1px" borderBottom="solid gray.gray200" pb="8px">
+    <Box
+      borderBottomWidth="1px"
+      borderBottom="solid gray.gray200"
+      pb="8px"
+      pl={{ sm: '16px' }}
+    >
       <Flex pt="12px" maxW="1200px" mx="auto" flexDirection="column">
         {/* ロゴ・検索ボックス */}
         <Flex mb="16px" justifyContent="space-between">
@@ -17,10 +22,6 @@ export const Header: React.FC<headerType> = ({ topics }) => {
               <Logo iconSize="28px" textSize="24px" />
             </Box>
           </Link>
-          {/* TODO:検索ボックス修正。検索機能を作るときに実装。 */}
-          <Box w="350px">
-            <Input placeholder="記事を検索" />
-          </Box>
         </Flex>
         {/* トピック */}
         <Flex

@@ -1,12 +1,20 @@
+import { useEffect } from 'react'
+import hljs from 'highlight.js/lib/core'
 import { Text, Box, Image } from '@chakra-ui/react'
 import { ArticleType } from 'types'
 import styles from 'src/styles/components/page/articles/contents.module.scss'
+import javascript from 'highlight.js/lib/languages/javascript'
 
 type props = {
   article: ArticleType
 }
 
+hljs.registerLanguage('javascript', javascript)
+
 export const Contents: React.FC<props> = ({ article }) => {
+  useEffect(() => {
+    hljs.highlightAll()
+  }, [hljs])
   return (
     <>
       <Box
@@ -19,16 +27,20 @@ export const Contents: React.FC<props> = ({ article }) => {
         <Box fontSize="25px" fontWeight="bold" mb="16px">
           <h1>{article.title}</h1>
         </Box>
-        <Text color="text.gray">{article.description}</Text>
+        <Box mb="16px">
+          <Text color="text.gray">{article.description}</Text>
+        </Box>
         {article?.thumbnail?.url && (
           <Box>
             <Image src={article?.thumbnail?.url} />
           </Box>
         )}
-        <div
-          className={styles.article_body}
-          dangerouslySetInnerHTML={{ __html: article.body }}
-        ></div>
+        <Box mt="16px">
+          <div
+            className={styles.article_body}
+            dangerouslySetInnerHTML={{ __html: article.body }}
+          ></div>
+        </Box>
       </Box>
     </>
   )

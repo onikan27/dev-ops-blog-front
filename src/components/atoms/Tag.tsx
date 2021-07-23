@@ -8,26 +8,15 @@ type props = {
 
 const Tag: React.FC<props> = ({ tag }) => {
   return (
-    // TODO: Link設置
-    <Link href="/">
-      <Box w="30px" cursor="pointer" _hover={{ opacity: 0.7 }}>
-        <Image src={`/Icon/${tag.tagName}.svg`} />
-      </Box>
-      {/* <Text
-        borderRadius="32px"
-        borderWidth="1px"
-        backgroundColor="brand.secondary"
-        borderColor="brand.secondary"
-        fontSize="13px"
-        px="8px"
-        mb="8px"
-        mr="8px"
-        cursor="pointer"
-        _hover={{ backgroundColor: '#b0f7cf' }}
-      >
-        {tag.tagName}
-      </Text> */}
-    </Link>
+    <>
+      {tag.tagName && tag.tagName[0] && (
+        <Link href={`/tags/${tag.tagName[0].toLowerCase()}`}>
+          <Box w="30px" cursor="pointer" _hover={{ opacity: 0.7 }}>
+            <Image src={`/Icon/${tag.tagName[0]}.svg`} />
+          </Box>
+        </Link>
+      )}
+    </>
   )
 }
 

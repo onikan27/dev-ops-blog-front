@@ -12,9 +12,10 @@ import { TagType } from 'types'
 type props = {
   articles: ArticleType[]
   tags: TagType[]
+  topics: any
 }
 
-const Home: NextPage<props> = ({ articles, tags }) => {
+const Home: NextPage<props> = ({ articles, tags, topics }) => {
   return (
     <>
       <Head>
@@ -31,7 +32,7 @@ const Home: NextPage<props> = ({ articles, tags }) => {
             </Box>
             <Articles articles={articles} />
           </Flex>
-          <RightSideBar tags={tags} />
+          <RightSideBar tags={tags} topics={topics} />
         </MainLayout>
       </DefaultLayout>
     </>
@@ -49,10 +50,18 @@ export const getStaticProps: GetStaticProps = async () => {
   const resTags = await fetch(`${process.env.NEXT_PUBLIC_ENDPOINT}/tags`, key)
   const tags = await resTags.json()
 
+  const resAllTopics = await fetch(
+    `${process.env.NEXT_PUBLIC_ENDPOINT}/topics?fields=name,articles`,
+    key,
+  )
+
+  const allTopics = await resAllTopics.json()
+
   return {
     props: {
       articles: articles.contents,
       tags: tags.contents,
+      topics: allTopics.contents,
     },
   }
 }

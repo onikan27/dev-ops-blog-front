@@ -1,4 +1,4 @@
-import { NextPage, GetStaticProps } from 'next'
+import { NextPage, GetServerSideProps } from 'next'
 import { Box, Text, Flex } from '@chakra-ui/react'
 import Head from 'next/head'
 import { DefaultLayout } from 'src/components/layout/DefaultLayout'
@@ -12,9 +12,10 @@ import { RightSideBar } from 'src/components/molecules/RightSideBar'
 type props = {
   articles: ArticleType[]
   tags: TagType[]
+  topics: any
 }
 
-const Infra: NextPage<props> = ({ articles, tags }) => {
+const Infra: NextPage<props> = ({ articles, tags, topics }) => {
   return (
     <>
       <Head>
@@ -31,28 +32,37 @@ const Infra: NextPage<props> = ({ articles, tags }) => {
             </Box>
             <Articles articles={articles} />
           </Flex>
-          <RightSideBar tags={tags} />
+          <RightSideBar tags={tags} topics={topics} />
         </MainLayout>
       </DefaultLayout>
     </>
   )
 }
 
-export const getStaticProps: GetStaticProps = async () => {
+export const getServerSideProps: GetServerSideProps = async () => {
   const key = ApiKey()
-  const resArticles = await fetch(
-    `${process.env.NEXT_PUBLIC_ENDPOINT}/articles`,
+  const resTopics = await fetch(
+    `${process.env.NEXT_PUBLIC_ENDPOINT}/topics?filters=name[contains]Infra`,
     key,
   )
-  const articles = await resArticles.json()
+  const topics = await resTopics.json()
 
   const resTags = await fetch(`${process.env.NEXT_PUBLIC_ENDPOINT}/tags`, key)
+
   const tags = await resTags.json()
+
+  const resAllTopics = await fetch(
+    `${process.env.NEXT_PUBLIC_ENDPOINT}/topics?fields=name,articles`,
+    key,
+  )
+
+  const allTopics = await resAllTopics.json()
 
   return {
     props: {
-      articles: articles.contents,
+      articles: topics?.contents[0].articles,
       tags: tags.contents,
+      topics: allTopics.contents,
     },
   }
 }

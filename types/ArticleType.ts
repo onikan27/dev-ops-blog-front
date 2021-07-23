@@ -5,6 +5,11 @@ export type ArticleType = {
   updatedAt: string
   body: string
   description: string
+  thumbnail: {
+    url: string
+    height: number
+    width: number
+  }
   tags: {
     id: string
     createdAt: string

@@ -11,7 +11,9 @@ export const Articles: React.FC<props> = ({ articles }) => {
   return (
     <Box w="100%">
       {articles.map((el) => (
-        <Article article={el} key={el.id} />
+        <Box key={el.id} mb="16px">
+          <Article article={el} />
+        </Box>
       ))}
     </Box>
   )

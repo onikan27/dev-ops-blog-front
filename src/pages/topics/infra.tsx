@@ -19,7 +19,7 @@ const Infra: NextPage<props> = ({ articles, tags, topics }) => {
   return (
     <>
       <Head>
-        <title>Blog</title>
+        <title>Onikan-Blog：Infra</title>
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <DefaultLayout>

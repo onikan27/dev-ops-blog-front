@@ -27,12 +27,12 @@ export const Contents: React.FC<props> = ({ article }) => {
         <Box fontSize="25px" fontWeight="bold" mb="16px">
           <h1>{article.title}</h1>
         </Box>
-        <Box mb="16px">
+        <Box>
           <Text color="text.gray">{article.description}</Text>
         </Box>
         {article?.thumbnail?.url && (
           <Box>
-            <Image src={article?.thumbnail?.url} />
+            <Image src={article?.thumbnail?.url} objectFit="fill" />
           </Box>
         )}
         <Box mt="16px">

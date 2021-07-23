@@ -20,7 +20,7 @@ const App: NextPage<props> = ({ articles, tags, topics, tagName }) => {
   return (
     <>
       <Head>
-        <title>Blog</title>
+        <title>Onikan-Blog：{tagName}</title>
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <DefaultLayout>
@@ -45,7 +45,12 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
   tagName = tagName[0].toUpperCase() + tagName.slice(1)
   if (tagName === 'Aws') {
     tagName = 'AWS'
+  } else if (tagName === 'Ts') {
+    tagName = 'TS'
+  } else if (tagName === 'Js') {
+    tagName = 'JS'
   }
+
   const key = ApiKey()
   const resTagArticles = await fetch(
     `${process.env.NEXT_PUBLIC_ENDPOINT}/tags?filters=tagName[contains]${tagName}`,

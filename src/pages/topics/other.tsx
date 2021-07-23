@@ -15,11 +15,11 @@ type props = {
   topics: any
 }
 
-const Other: NextPage<props> = ({ articles, tags, topics }) => {
+const Others: NextPage<props> = ({ articles, tags, topics }) => {
   return (
     <>
       <Head>
-        <title>Blog</title>
+        <title>Onikan-Blog：Others</title>
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <DefaultLayout>
@@ -27,7 +27,7 @@ const Other: NextPage<props> = ({ articles, tags, topics }) => {
           <Flex flexDirection="column">
             <Box mb="32px">
               <Text fontSize="32px" fontWeight="bold">
-                Other
+                Others
               </Text>
             </Box>
             <Articles articles={articles} />
@@ -42,7 +42,7 @@ const Other: NextPage<props> = ({ articles, tags, topics }) => {
 export const getServerSideProps: GetServerSideProps = async () => {
   const key = ApiKey()
   const resTopics = await fetch(
-    `${process.env.NEXT_PUBLIC_ENDPOINT}/topics?filters=name[contains]Other`,
+    `${process.env.NEXT_PUBLIC_ENDPOINT}/topics?filters=name[contains]Others`,
     key,
   )
   const topics = await resTopics.json()
@@ -67,4 +67,4 @@ export const getServerSideProps: GetServerSideProps = async () => {
   }
 }
 
-export default Other
+export default Others

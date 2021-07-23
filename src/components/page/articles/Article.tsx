@@ -20,15 +20,14 @@ export const Article: React.FC<props> = ({ article }) => {
         boxShadow="0 1px 8px 0 rgb(0 0 0 / 15%)"
         _hover={{ boxShadow: '0 1px 8px 0 rgb(0 0 0 / 30%)' }}
         flexDirection={{ sm: 'column', md: 'row' }}
-        // minH={{ sm: '400px' }}
       >
         <Box w={{ sm: '100%', md: '35%' }}>
           <Image
-            src="/Image/test.png"
+            src={article?.thumbnail?.url}
             borderRadius="8px"
             w="100%"
             h={{ sm: '180px', md: '100%' }}
-            objectFit="cover"
+            objectFit="contain"
           />
         </Box>
         <Box p="16px" w={{ sm: '100%', md: '65%' }} position="relative">
@@ -37,7 +36,7 @@ export const Article: React.FC<props> = ({ article }) => {
               {article.title}
             </Text>
           </Box>
-          <Box mb="16px" minH={{ sm: '100px', md: '0' }}>
+          <Box mb="16px" minH={{ sm: '100px', md: '50px' }}>
             <Text color="text.gray" fontSize="14px">
               {article.description}
             </Text>

@@ -1,20 +1,22 @@
-import { NextPage, GetStaticProps } from 'next'
+import { NextPage, GetStaticProps, GetStaticPaths } from 'next'
 import { Box, Text, Flex } from '@chakra-ui/react'
 import Head from 'next/head'
 import { DefaultLayout } from 'src/components/layout/DefaultLayout'
 import { MainLayout } from 'src/components/layout/MainLayout'
 import { Articles } from 'src/components/page/articles/Articles'
-import { ApiKey } from 'utils/api-key'
 import { ArticleType } from 'types'
-import { RightSideBar } from 'src/components/molecules/RightSideBar'
 import { TagType } from 'types'
+import { ApiKey } from 'utils/api-key'
+import { RightSideBar } from 'src/components/molecules/RightSideBar'
+import { Contents } from 'src/components/page/articles/contents'
+import axios from 'axios'
 
 type props = {
-  articles: ArticleType[]
+  article: ArticleType
   tags: TagType[]
 }
 
-const Home: NextPage<props> = ({ articles, tags }) => {
+const App: NextPage<props> = ({ article, tags }) => {
   return (
     <>
       <Head>
@@ -24,12 +26,7 @@ const Home: NextPage<props> = ({ articles, tags }) => {
       <DefaultLayout>
         <MainLayout>
           <Flex flexDirection="column">
-            <Box mb="32px">
-              <Text fontSize="32px" fontWeight="bold">
-                New
-              </Text>
-            </Box>
-            <Articles articles={articles} />
+            <Contents article={article} />
           </Flex>
           <RightSideBar tags={tags} />
         </MainLayout>
@@ -38,12 +35,14 @@ const Home: NextPage<props> = ({ articles, tags }) => {
   )
 }
 
-export const getStaticProps: GetStaticProps = async () => {
+export const getStaticProps: GetStaticProps = async (context) => {
   const key = ApiKey()
+  const id = context?.params?.id as string
   const resArticles = await fetch(
-    `${process.env.NEXT_PUBLIC_ENDPOINT}/articles`,
+    `${process.env.NEXT_PUBLIC_ENDPOINT}/articles?id[equals]${id}`,
     key,
   )
+
   const articles = await resArticles.json()
 
   const resTags = await fetch(`${process.env.NEXT_PUBLIC_ENDPOINT}/tags`, key)
@@ -51,10 +50,35 @@ export const getStaticProps: GetStaticProps = async () => {
 
   return {
     props: {
-      articles: articles.contents,
+      article: articles.contents[0],
       tags: tags.contents,
     },
   }
 }
 
-export default Home
+type articleReturnType = {
+  contents: {
+    id: string
+  }[]
+  totalCount: number
+  offset: number
+  limit: number
+}
+
+export const getStaticPaths: GetStaticPaths = async () => {
+  const key = ApiKey()
+  const {
+    data: { contents: articles },
+  } = await axios.get<articleReturnType>(
+    `${process.env.NEXT_PUBLIC_ENDPOINT}/articles?fields=id&limit=9999`,
+    key,
+  )
+
+  const paths = articles.map((article) => `/articles/${article.id}`)
+  return {
+    paths,
+    fallback: false,
+  }
+}
+
+export default App

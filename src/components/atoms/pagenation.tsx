@@ -20,11 +20,17 @@ export const Pagenation = ({ pathName, totalCount }: PagenationType) => {
       {range(1, Math.ceil(totalCount / PER_PAGE)).map((number, index) => (
         <>
           {currentPage === number ? (
-            <Box key={index} fontSize="20px" ml="16px">
+            <Box key={index} fontSize="20px" ml="16px" fontWeight="bold">
               <p>{number}</p>
             </Box>
           ) : (
-            <Box key={index} color="link.blue" fontSize="20px" ml="16px">
+            <Box
+              key={index}
+              color="link.blue"
+              fontSize="20px"
+              ml="16px"
+              fontWeight="bold"
+            >
               <Link href={`${pathName}?page=${number}`}>
                 <a>{number}</a>
               </Link>

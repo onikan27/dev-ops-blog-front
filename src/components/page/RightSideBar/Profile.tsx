@@ -35,7 +35,7 @@ export const Profile: React.FC = () => {
           >
             詳しいプロフィール
           </Text>
-          <AiOutlineArrowRight fontSize="12px" />
+          {/* <AiOutlineArrowRight fontSize="12px" /> */}
         </Flex>
       </Link>
     </Box>

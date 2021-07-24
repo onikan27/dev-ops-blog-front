@@ -21,7 +21,7 @@ const App: NextPage<props> = ({ article, tags, topics }) => {
   return (
     <>
       <Head>
-        <title>Onikan-Blog：{article.title}</title>
+        <title>Onikan-Blog：{article?.title}</title>
       </Head>
       <DefaultLayout>
         <MainLayout>

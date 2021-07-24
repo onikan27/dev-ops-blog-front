@@ -1,32 +1,35 @@
-import cheerio from 'cheerio'
-import hljs from 'highlight.js'
-import { NextPage, GetStaticProps } from 'next'
+import { NextPage, GetServerSideProps } from 'next'
 import { Box, Text, Flex } from '@chakra-ui/react'
 import Head from 'next/head'
 import { DefaultLayout } from 'src/components/layout/DefaultLayout'
 import { MainLayout } from 'src/components/layout/MainLayout'
+import { Articles } from 'src/components/page/articles/Articles'
 import { ArticleType } from 'types'
 import { TagType } from 'types'
 import { ApiKey } from 'utils/api-key'
 import { RightSideBar } from 'src/components/molecules/RightSideBar'
-import { Contents } from 'src/components/page/articles/contents'
 
 type props = {
-  article: ArticleType
+  articles: ArticleType[]
   tags: TagType[]
   topics: any
 }
 
-const App: NextPage<props> = ({ article, tags, topics }) => {
+const Others: NextPage<props> = ({ articles, tags, topics }) => {
   return (
     <>
       <Head>
-        <title>Onikan-Blog：{article.title}</title>
+        <title>Onikan-Blog：Others</title>
       </Head>
       <DefaultLayout>
         <MainLayout>
           <Flex flexDirection="column">
-            <Contents article={article} />
+            <Box mb="32px">
+              <Text fontSize="32px" fontWeight="bold">
+                Others
+              </Text>
+            </Box>
+            <Articles articles={articles} />
           </Flex>
           <RightSideBar tags={tags} topics={topics} />
         </MainLayout>
@@ -35,25 +38,16 @@ const App: NextPage<props> = ({ article, tags, topics }) => {
   )
 }
 
-export const getStaticProps: GetStaticProps = async (context) => {
+export const getServerSideProps: GetServerSideProps = async () => {
   const key = ApiKey()
-  const id = context?.params?.id as string
-  const resArticle = await fetch(
-    `${process.env.NEXT_PUBLIC_ENDPOINT}/articles?filters=id[equals]${id}`,
+  const resTopics = await fetch(
+    `${process.env.NEXT_PUBLIC_ENDPOINT}/topics?filters=name[contains]Others`,
     key,
   )
-
-  const article = await resArticle.json()
-
-  const $ = cheerio.load(article.contents[0].body)
-
-  $('pre > code').each((i, elm) => {
-    const result = hljs.highlightAuto($(elm).text())
-    $(elm).html(result.value)
-    $(elm).addClass('hljs')
-  })
+  const topics = await resTopics.json()
 
   const resTags = await fetch(`${process.env.NEXT_PUBLIC_ENDPOINT}/tags`, key)
+
   const tags = await resTags.json()
 
   const resAllTopics = await fetch(
@@ -65,11 +59,11 @@ export const getStaticProps: GetStaticProps = async (context) => {
 
   return {
     props: {
-      article: article.contents[0],
+      articles: topics?.contents[0].articles,
       tags: tags.contents,
       topics: allTopics.contents,
     },
   }
 }
 
-export default App
+export default Others

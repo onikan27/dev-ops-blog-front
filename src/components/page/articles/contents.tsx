@@ -24,7 +24,7 @@ export const Contents: React.FC<props> = ({ article }) => {
         p="16px"
         borderRadius="8px"
       >
-        <Box fontSize="25px" fontWeight="bold" mb="16px">
+        <Box fontSize="28px" fontWeight="bold" mb="16px">
           <h1>{article?.title}</h1>
         </Box>
         <Box>
@@ -35,7 +35,7 @@ export const Contents: React.FC<props> = ({ article }) => {
             <Image src={article?.thumbnail?.url} objectFit="fill" />
           </Box>
         )}
-        <Box mt="16px">
+        <Box mt="16px" mx="16px">
           <div
             className={styles.article_body}
             dangerouslySetInnerHTML={{ __html: article.body }}

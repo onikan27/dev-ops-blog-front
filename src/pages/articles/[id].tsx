@@ -35,7 +35,7 @@ const App: NextPage<props> = ({ article, tags, topics }) => {
   )
 }
 
-export const getStaticProps: GetServerSideProps = async (context) => {
+export const getServerSideProps: GetServerSideProps = async (context) => {
   const key = ApiKey()
   const id = context?.params?.id as string
   const resArticle = await fetch(

@@ -1,5 +1,4 @@
-import { Box, Text, Flex, Grid, Image } from '@chakra-ui/react'
-import Link from 'next/link'
+import { Box } from '@chakra-ui/react'
 import { Profile } from 'src/components/page/RightSideBar/Profile'
 import { Topics } from 'src/components/page/RightSideBar/Topics'
 import { Tags } from 'src/components/page/RightSideBar/Tags'

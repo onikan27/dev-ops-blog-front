@@ -5,18 +5,25 @@ import { MainLayout } from 'src/components/layout/MainLayout'
 import { ApiKey } from 'utils/api-key'
 import { NextPage, GetServerSideProps } from 'next'
 import { RightSideBar } from 'src/components/molecules/RightSideBar'
-import { Contents } from 'src/components/page/articles/contents'
 import { ArticleType, TagType } from 'types'
 import { Articles } from 'src/components/page/articles/Articles'
+import { Pagenation } from 'src/components/atoms/pagenation'
 
 type props = {
   articles: ArticleType[]
   tags: TagType[]
   topics: any
   tagName: string
+  totalArticlesCount: number
 }
 
-const App: NextPage<props> = ({ articles, tags, topics, tagName }) => {
+const App: NextPage<props> = ({
+  articles,
+  tags,
+  topics,
+  tagName,
+  totalArticlesCount,
+}) => {
   return (
     <>
       <Head>
@@ -31,6 +38,14 @@ const App: NextPage<props> = ({ articles, tags, topics, tagName }) => {
               </Text>
             </Box>
             <Articles articles={articles} />
+            {totalArticlesCount > 5 && (
+              <Box mx="auto" mb="16px">
+                <Pagenation
+                  totalCount={totalArticlesCount}
+                  pathName={`/tags/${tagName.toLowerCase()}`}
+                />
+              </Box>
+            )}
           </Flex>
           <RightSideBar tags={tags} topics={topics} />
         </MainLayout>
@@ -41,6 +56,7 @@ const App: NextPage<props> = ({ articles, tags, topics, tagName }) => {
 
 export const getServerSideProps: GetServerSideProps = async (context) => {
   let tagName = context?.params?.slug as string
+  const page = Number(context?.query?.page ? context?.query?.page : 1)
   tagName = tagName[0].toUpperCase() + tagName.slice(1)
   if (tagName === 'Aws') {
     tagName = 'AWS'
@@ -58,6 +74,11 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
 
   const articles = await resTagArticles.json()
 
+  const articlesPages = articles?.contents[0]?.articles.slice(
+    (page - 1) * 5,
+    (page - 1) * 5 + 5,
+  )
+
   const resTags = await fetch(`${process.env.NEXT_PUBLIC_ENDPOINT}/tags`, key)
 
   const tags = await resTags.json()
@@ -71,14 +92,13 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
 
   return {
     props: {
-      articles: articles?.contents[0]?.articles
-        ? articles?.contents[0]?.articles
-        : null,
+      articles: articlesPages ? articlesPages : null,
       tags: tags?.contents ? tags?.contents : null,
       topics: allTopics?.contents ? allTopics?.contents : null,
       tagName: articles?.contents[0]?.tagName[0]
         ? articles?.contents[0]?.tagName[0]
         : null,
+      totalArticlesCount: articles?.contents[0]?.articles?.length,
     },
   }
 }

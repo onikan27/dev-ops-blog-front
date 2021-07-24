@@ -86,7 +86,7 @@ export const getStaticPaths: GetStaticPaths = async () => {
     (path: { id: string }) => `/articles/${path.id}`,
   )
 
-  return { paths, fallback: false }
+  return { paths, fallback: 'blocking' }
 }
 
 export default App

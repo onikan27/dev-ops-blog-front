@@ -30,7 +30,6 @@ class Document extends NextDocument {
           />
           <meta name="msapplication-TileColor" content="#ffffff" />
           <meta name="theme-color" content="#ffffff" />
-          <title>Onikan-Blog</title>
           <meta property="og:title" content="Onikan-Blog" />
           <meta property="og:description" content="Akino's Blog" />
           <meta property="og:type" content="website" />

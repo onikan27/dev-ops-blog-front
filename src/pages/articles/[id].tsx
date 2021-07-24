@@ -22,7 +22,6 @@ const App: NextPage<props> = ({ article, tags, topics }) => {
     <>
       <Head>
         <title>Onikan-Blog：{article.title}</title>
-        <link rel="icon" href="/favicon.ico" />
       </Head>
       <DefaultLayout>
         <MainLayout>

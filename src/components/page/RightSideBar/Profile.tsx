@@ -1,5 +1,5 @@
 import { Box, Text, Image, Flex } from '@chakra-ui/react'
-import { AiOutlineArrowRight } from 'react-icons/Ai'
+// import { AiOutlineArrowRight } from 'react-icons/Ai'
 import Link from 'next/link'
 
 export const Profile: React.FC = () => {

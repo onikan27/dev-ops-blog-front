@@ -5,7 +5,6 @@ import { MainLayout } from 'src/components/layout/MainLayout'
 import { ApiKey } from 'utils/api-key'
 import { NextPage, GetServerSideProps } from 'next'
 import { RightSideBar } from 'src/components/molecules/RightSideBar'
-import { Contents } from 'src/components/page/articles/contents'
 import { ArticleType, TagType } from 'types'
 import { Articles } from 'src/components/page/articles/Articles'
 

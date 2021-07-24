@@ -7,15 +7,23 @@ import { NextPage, GetServerSideProps } from 'next'
 import { RightSideBar } from 'src/components/molecules/RightSideBar'
 import { ArticleType, TagType } from 'types'
 import { Articles } from 'src/components/page/articles/Articles'
+import { Pagenation } from 'src/components/atoms/pagenation'
 
 type props = {
   articles: ArticleType[]
   tags: TagType[]
   topics: any
   tagName: string
+  totalArticlesCount: number
 }
 
-const App: NextPage<props> = ({ articles, tags, topics, tagName }) => {
+const App: NextPage<props> = ({
+  articles,
+  tags,
+  topics,
+  tagName,
+  totalArticlesCount,
+}) => {
   return (
     <>
       <Head>
@@ -30,6 +38,14 @@ const App: NextPage<props> = ({ articles, tags, topics, tagName }) => {
               </Text>
             </Box>
             <Articles articles={articles} />
+            {totalArticlesCount > 5 && (
+              <Box mx="auto" mb="16px">
+                <Pagenation
+                  totalCount={totalArticlesCount}
+                  pathName={`/tags/${tagName.toLowerCase()}`}
+                />
+              </Box>
+            )}
           </Flex>
           <RightSideBar tags={tags} topics={topics} />
         </MainLayout>
@@ -82,6 +98,7 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
       tagName: articles?.contents[0]?.tagName[0]
         ? articles?.contents[0]?.tagName[0]
         : null,
+      totalArticlesCount: articles?.contents[0]?.articles?.length,
     },
   }
 }

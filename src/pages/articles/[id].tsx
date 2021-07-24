@@ -1,6 +1,6 @@
 import cheerio from 'cheerio'
 import hljs from 'highlight.js'
-import { NextPage, GetStaticProps } from 'next'
+import { NextPage, GetServerSideProps } from 'next'
 import { Box, Text, Flex } from '@chakra-ui/react'
 import Head from 'next/head'
 import { DefaultLayout } from 'src/components/layout/DefaultLayout'
@@ -35,7 +35,7 @@ const App: NextPage<props> = ({ article, tags, topics }) => {
   )
 }
 
-export const getStaticProps: GetStaticProps = async (context) => {
+export const getStaticProps: GetServerSideProps = async (context) => {
   const key = ApiKey()
   const id = context?.params?.id as string
   const resArticle = await fetch(

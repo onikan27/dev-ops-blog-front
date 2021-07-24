@@ -25,7 +25,7 @@ export const Contents: React.FC<props> = ({ article }) => {
         borderRadius="8px"
       >
         <Box fontSize="25px" fontWeight="bold" mb="16px">
-          <h1>{article.title}</h1>
+          <h1>{article?.title}</h1>
         </Box>
         <Box>
           <Text color="text.gray">{article.description}</Text>

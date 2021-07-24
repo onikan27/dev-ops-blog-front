@@ -1,7 +1,7 @@
 import cheerio from 'cheerio'
 import hljs from 'highlight.js'
-import { NextPage, GetServerSideProps } from 'next'
-import { Box, Text, Flex } from '@chakra-ui/react'
+import { NextPage, GetStaticProps, GetStaticPaths } from 'next'
+import { Flex } from '@chakra-ui/react'
 import Head from 'next/head'
 import { DefaultLayout } from 'src/components/layout/DefaultLayout'
 import { MainLayout } from 'src/components/layout/MainLayout'
@@ -21,7 +21,7 @@ const App: NextPage<props> = ({ article, tags, topics }) => {
   return (
     <>
       <Head>
-        <title>Onikan-Blog：{article.title}</title>
+        <title>Onikan-Blog：{article?.title}</title>
       </Head>
       <DefaultLayout>
         <MainLayout>
@@ -35,7 +35,7 @@ const App: NextPage<props> = ({ article, tags, topics }) => {
   )
 }
 
-export const getServerSideProps: GetServerSideProps = async (context) => {
+export const getStaticProps: GetStaticProps = async (context) => {
   const key = ApiKey()
   const id = context?.params?.id as string
   const resArticle = await fetch(
@@ -70,6 +70,23 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
       topics: allTopics.contents,
     },
   }
+}
+
+export const getStaticPaths: GetStaticPaths = async () => {
+  const key = ApiKey()
+
+  const resArticle = await fetch(
+    `${process.env.NEXT_PUBLIC_ENDPOINT}/articles?fields=id`,
+    key,
+  )
+
+  const article = await resArticle.json()
+
+  const paths = article.contents.map(
+    (path: { id: string }) => `/articles/${path.id}`,
+  )
+
+  return { paths, fallback: 'blocking' }
 }
 
 export default App

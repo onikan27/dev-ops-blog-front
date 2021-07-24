@@ -11,7 +11,6 @@ export const Header: React.FC = () => {
       px={{ sm: '16px' }}
     >
       <Flex pt="12px" maxW="1200px" mx="auto" flexDirection="column">
-        {/* ロゴ・検索ボックス */}
         <Flex mb="16px" justifyContent="space-between">
           <Link href="/">
             <Box cursor="pointer">
@@ -19,7 +18,6 @@ export const Header: React.FC = () => {
             </Box>
           </Link>
         </Flex>
-        {/* トピック */}
         <Flex
           w={{ sm: '100%', md: '400px' }}
           justifyContent="space-between"

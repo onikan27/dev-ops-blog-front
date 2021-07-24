@@ -33,7 +33,7 @@ export const Article: React.FC<props> = ({ article }) => {
         <Box p="16px" w={{ sm: '100%', md: '65%' }} position="relative">
           <Box mb="16px">
             <Text fontSize="24px" fontWeight="bold">
-              {article.title}
+              {article?.title}
             </Text>
           </Box>
           <Box mb="16px" minH={{ sm: '100px', md: '50px' }}>

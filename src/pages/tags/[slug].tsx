@@ -40,6 +40,7 @@ const App: NextPage<props> = ({ articles, tags, topics, tagName }) => {
 
 export const getServerSideProps: GetServerSideProps = async (context) => {
   let tagName = context?.params?.slug as string
+  const page = Number(context?.query?.page ? context?.query?.page : 1)
   tagName = tagName[0].toUpperCase() + tagName.slice(1)
   if (tagName === 'Aws') {
     tagName = 'AWS'
@@ -57,6 +58,11 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
 
   const articles = await resTagArticles.json()
 
+  const articlesPages = articles?.contents[0]?.articles.slice(
+    (page - 1) * 5,
+    (page - 1) * 5 + 5,
+  )
+
   const resTags = await fetch(`${process.env.NEXT_PUBLIC_ENDPOINT}/tags`, key)
 
   const tags = await resTags.json()
@@ -70,9 +76,7 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
 
   return {
     props: {
-      articles: articles?.contents[0]?.articles
-        ? articles?.contents[0]?.articles
-        : null,
+      articles: articlesPages ? articlesPages : null,
       tags: tags?.contents ? tags?.contents : null,
       topics: allTopics?.contents ? allTopics?.contents : null,
       tagName: articles?.contents[0]?.tagName[0]

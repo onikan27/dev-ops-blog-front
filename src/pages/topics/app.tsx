@@ -38,13 +38,19 @@ const App: NextPage<props> = ({ articles, tags, topics }) => {
   )
 }
 
-export const getServerSideProps: GetServerSideProps = async () => {
+export const getServerSideProps: GetServerSideProps = async (context) => {
+  const page = Number(context?.query?.page ? context?.query?.page : 1)
   const key = ApiKey()
   const resTopics = await fetch(
     `${process.env.NEXT_PUBLIC_ENDPOINT}/topics?filters=name[contains]APP`,
     key,
   )
   const topics = await resTopics.json()
+
+  const articlesPages = topics?.contents[0]?.articles.slice(
+    (page - 1) * 5,
+    (page - 1) * 5 + 5,
+  )
 
   const resTags = await fetch(`${process.env.NEXT_PUBLIC_ENDPOINT}/tags`, key)
 
@@ -59,7 +65,7 @@ export const getServerSideProps: GetServerSideProps = async () => {
 
   return {
     props: {
-      articles: topics?.contents[0].articles,
+      articles: articlesPages,
       tags: tags.contents,
       topics: allTopics.contents,
     },

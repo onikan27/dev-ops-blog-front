@@ -31,7 +31,7 @@ const App: NextPage<props> = ({
       <DefaultLayout>
         <MainLayout>
           <Flex flexDirection="column">
-            <Box mb="32px">
+            <Box mb="32px" ml={{ sm: '8px', md: 0 }}>
               <Text fontSize="32px" fontWeight="bold">
                 App
               </Text>

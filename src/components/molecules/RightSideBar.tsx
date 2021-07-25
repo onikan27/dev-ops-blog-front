@@ -2,10 +2,10 @@ import { Box } from '@chakra-ui/react'
 import { Profile } from 'src/components/page/RightSideBar/Profile'
 import { Topics } from 'src/components/page/RightSideBar/Topics'
 import { Tags } from 'src/components/page/RightSideBar/Tags'
-import { TagType } from 'types'
+import { TagObjectType } from 'types'
 
 type props = {
-  tags: TagType[]
+  tags: TagObjectType[]
   topics: any
 }
 

@@ -1,6 +1,3 @@
-export type TagType = {
-  id: string
-  createdAt: string
-  updatedAt: string
-  tagName: string
-}
+export type TagObjectType = any
+
+export type TagType = any

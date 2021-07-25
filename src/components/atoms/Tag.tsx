@@ -9,14 +9,14 @@ type props = {
 const Tag: React.FC<props> = ({ tag }) => {
   return (
     <>
-      {tag.tagName && tag.tagName[0] && (
-        <Link href={`/tags/${tag.tagName[0].toLowerCase()}`}>
+      {tag && (
+        <Link href={`/tags/${tag}`}>
           <Box
             w={{ sm: '40px', md: '35px' }}
             cursor="pointer"
             _hover={{ opacity: 0.7 }}
           >
-            <Image src={`/Icon/${tag.tagName[0]}.svg`} />
+            <Image src={`/Icon/${tag}.svg`} />
           </Box>
         </Link>
       )}

@@ -14,6 +14,7 @@ export const Article: React.FC<props> = ({ article }) => {
       <Flex
         bg="white.white"
         w="100%"
+        minH="238px"
         maxW={{ sm: '100%', md: '100%', lg: '750px' }}
         cursor="pointer"
         borderRadius="8px"
@@ -43,7 +44,7 @@ export const Article: React.FC<props> = ({ article }) => {
           </Box>
           <Flex flexWrap="wrap" alignItems="center">
             {article?.tags?.map((tag, idx) => (
-              <Box key={idx} mr="8px">
+              <Box key={idx} mr="16px">
                 <Tag tag={tag} />
               </Box>
             ))}

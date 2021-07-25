@@ -10,10 +10,5 @@ export type ArticleType = {
     height: number
     width: number
   }
-  tags: {
-    id: string
-    createdAt: string
-    updatedAt: string
-    tagName: string
-  }[]
+  tags: string[]
 }

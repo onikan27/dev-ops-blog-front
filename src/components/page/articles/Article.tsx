@@ -14,7 +14,7 @@ export const Article: React.FC<props> = ({ article }) => {
       <Flex
         bg="white.white"
         w="100%"
-        minH="238px"
+        minH="274px"
         maxW={{ sm: '100%', md: '100%', lg: '750px' }}
         cursor="pointer"
         borderRadius="8px"
@@ -33,11 +33,11 @@ export const Article: React.FC<props> = ({ article }) => {
         </Box>
         <Box p="16px" w={{ sm: '100%', md: '65%' }} position="relative">
           <Box mb="16px">
-            <Text fontSize="24px" fontWeight="bold">
+            <Text fontSize={{ sm: '18px', md: '24px' }} fontWeight="bold">
               {article?.title}
             </Text>
           </Box>
-          <Box mb="16px" minH={{ sm: '100px', md: '50px' }}>
+          <Box mb="16px" minH={{ sm: '0', md: '50px' }}>
             <Text color="text.gray" fontSize="14px">
               {article.description}
             </Text>

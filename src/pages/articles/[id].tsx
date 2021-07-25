@@ -25,7 +25,7 @@ const App: NextPage<props> = ({ article, tags, topics }) => {
       </Head>
       <DefaultLayout>
         <MainLayout>
-          <Flex flexDirection="column">
+          <Flex flexDirection="column" mb={{ sm: '32px', md: 0 }}>
             <Contents article={article} />
           </Flex>
           <RightSideBar tags={tags} topics={topics} />

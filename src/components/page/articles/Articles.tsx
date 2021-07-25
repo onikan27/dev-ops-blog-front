@@ -11,7 +11,7 @@ export const Articles: React.FC<props> = ({ articles }) => {
   return (
     <Box w="100%">
       {articles?.map((el) => (
-        <Box key={el.id} mb={{ sm: '16px', md: '32px' }}>
+        <Box key={el.id} mb="32px">
           <Article article={el} />
         </Box>
       ))}

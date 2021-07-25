@@ -22,10 +22,11 @@ export const Contents: React.FC<props> = ({ article }) => {
         bg="white.white"
         maxW={{ sm: '100%', md: '100%', lg: '750px' }}
         w="100%"
-        p="16px"
+        px={{ sm: '8px', md: '16px' }}
+        py="16px"
         borderRadius="8px"
       >
-        <Box fontSize="28px" fontWeight="bold" mb="16px">
+        <Box fontSize={{ sm: '24px', md: '28px' }} fontWeight="bold" mb="16px">
           <h1>{article?.title}</h1>
         </Box>
         <Box mb="16px">
@@ -43,7 +44,7 @@ export const Contents: React.FC<props> = ({ article }) => {
             <Image src={article?.thumbnail?.url} objectFit="fill" />
           </Box>
         )}
-        <Box mt="16px" mx="16px">
+        <Box mt="16px" mx={{ sm: '8px', md: '16px' }}>
           <div
             className={styles.article_body}
             dangerouslySetInnerHTML={{ __html: article.body }}

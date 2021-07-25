@@ -1,9 +1,9 @@
 import { Box, Text, Flex } from '@chakra-ui/react'
 import Tag from 'src/components/atoms/Tag'
-import { TagType } from 'types'
+import { TagObjectType } from 'types'
 
 type tagsType = {
-  tags: TagType[]
+  tags: TagObjectType[]
 }
 
 export const Tags: React.FC<tagsType> = ({ tags }) => {
@@ -15,11 +15,14 @@ export const Tags: React.FC<tagsType> = ({ tags }) => {
         </Text>
       </Box>
       <Flex flexWrap="wrap" alignItems="center">
-        {tags.map((tag) => (
-          <Box key={tag.id} mr="8px" mb="8px">
-            <Tag tag={tag} />
-          </Box>
-        ))}
+        {tags.map((tag, index) => {
+          const tagName = tag.tagName
+          return (
+            <Box key={index} mr="8px" mb="8px">
+              <Tag tag={tagName} />
+            </Box>
+          )
+        })}
       </Flex>
     </Box>
   )

@@ -28,6 +28,12 @@ const App: NextPage<props> = ({
     <>
       <Head>
         <title>Onikan-Blog：{tagName}</title>
+        <meta property="og:site_name" content={`Onikan-Blog：${tagName}`} />
+        <meta name="twitter:card" content="summary_large_image" />
+        <meta name="twitter:site" content="@1027_onikan" />
+        <meta name="twitter:title" content={`Onikan-Blog：${tagName}`} />
+        <meta property="og:url" content="https://www.onikan-blog.com/" />
+        <meta property="og:type" content="website" />
       </Head>
       <DefaultLayout>
         <MainLayout>

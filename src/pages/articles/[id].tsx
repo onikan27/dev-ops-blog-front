@@ -22,6 +22,20 @@ const App: NextPage<props> = ({ article, tags, topics }) => {
     <>
       <Head>
         <title>Onikan-Blog：{article?.title}</title>
+        <meta property="og:title" content={`Onikan-Blog：${article?.title}`} />
+        <meta property="og:description" content={`${article.description}`} />
+        <meta property="og:type" content="website" />
+        <meta property="og:url" content="https://www.onikan-blog.com/" />
+        <meta property="og:image" content={article.thumbnail.url} />
+        <meta name="twitter:image" content={article.thumbnail.url} />
+        <meta name="twitter:card" content="summary_large_image" />
+        <meta
+          property="og:site_name"
+          content={`Onikan-Blog：${article?.title}`}
+        />
+        <meta name="twitter:site" content="@1027_onikan" />
+        <meta name="twitter:title" content={`Onikan-Blog：${article?.title}`} />
+        <meta name="twitter:description" content={`${article.description}`} />
       </Head>
       <DefaultLayout>
         <MainLayout>

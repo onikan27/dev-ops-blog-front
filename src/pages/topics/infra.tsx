@@ -1,4 +1,4 @@
-import { NextPage, GetServerSideProps } from 'next'
+import { NextPage, GetStaticProps } from 'next'
 import { Box, Text, Flex } from '@chakra-ui/react'
 import Head from 'next/head'
 import { DefaultLayout } from 'src/components/layout/DefaultLayout'
@@ -59,8 +59,8 @@ const Infra: NextPage<props> = ({
   )
 }
 
-export const getServerSideProps: GetServerSideProps = async (context) => {
-  const page = Number(context?.query?.page ? context?.query?.page : 1)
+export const getStaticProps: GetStaticProps = async (context) => {
+  const page = Number(context?.params?.page ? context?.params?.page : 1)
   const key = ApiKey()
   const resTopics = await fetch(
     `${process.env.NEXT_PUBLIC_ENDPOINT}/topics?filters=name[contains]Infra`,

@@ -3,7 +3,7 @@ import Head from 'next/head'
 import { DefaultLayout } from 'src/components/layout/DefaultLayout'
 import { MainLayout } from 'src/components/layout/MainLayout'
 import { ApiKey } from 'utils/api-key'
-import { NextPage, GetServerSideProps } from 'next'
+import { NextPage, GetStaticProps } from 'next'
 import { RightSideBar } from 'src/components/molecules/RightSideBar'
 import { ArticleType, TagType } from 'types'
 import { Articles } from 'src/components/page/articles/Articles'
@@ -60,9 +60,9 @@ const App: NextPage<props> = ({
   )
 }
 
-export const getServerSideProps: GetServerSideProps = async (context) => {
+export const getStaticProps: GetStaticProps = async (context) => {
   let tagName = context?.params?.slug as string
-  const page = Number(context?.query?.page ? context?.query?.page : 1)
+  const page = Number(context?.params?.page ? context?.params?.page : 1)
   tagName = tagName[0].toUpperCase() + tagName.slice(1)
   if (tagName === 'Aws') {
     tagName = 'AWS'

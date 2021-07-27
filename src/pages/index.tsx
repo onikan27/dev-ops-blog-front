@@ -1,4 +1,4 @@
-import { NextPage, GetServerSideProps } from 'next'
+import { NextPage, GetStaticProps } from 'next'
 import { Box, Text, Flex } from '@chakra-ui/react'
 import Head from 'next/head'
 import { DefaultLayout } from 'src/components/layout/DefaultLayout'
@@ -50,8 +50,8 @@ const Home: NextPage<props> = ({
   )
 }
 
-export const getServerSideProps: GetServerSideProps = async (context) => {
-  const page = Number(context?.query?.page)
+export const getStaticProps: GetStaticProps = async (context) => {
+  const page = Number(context?.params?.page)
 
   const key = ApiKey()
   const resArticles = await fetch(

@@ -106,6 +106,7 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
         : null,
       totalArticlesCount: articles?.contents[0]?.articles?.length,
     },
+    revalidate: 60,
   }
 }
 

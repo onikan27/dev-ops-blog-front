@@ -79,6 +79,7 @@ export const getStaticProps: GetStaticProps = async (context) => {
       topics: allTopics.contents,
       totalArticlesCount: articles.totalCount,
     },
+    revalidate: 60,
   }
 }
 

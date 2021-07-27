@@ -91,6 +91,7 @@ export const getStaticProps: GetStaticProps = async (context) => {
       topics: allTopics.contents,
       totalArticlesCount: topics?.contents[0]?.articles?.length,
     },
+    revalidate: 60,
   }
 }
 

@@ -36,11 +36,11 @@ class Document extends NextDocument {
           <meta property="og:url" content="https://onikan.com/" />
           <meta
             property="og:image"
-            content="https://onikan-portfolio.s3-ap-northeast-1.amazonaws.com/portfolio.png"
+            content="https://onikan-portfolio.s3.ap-northeast-1.amazonaws.com/DevOps.png"
           />
           <meta
             name="twitter:image"
-            content="https://onikan-portfolio.s3-ap-northeast-1.amazonaws.com/portfolio.png"
+            content="https://onikan-portfolio.s3.ap-northeast-1.amazonaws.com/DevOps.png"
           />
           <meta name="twitter:card" content="summary_large_image" />
           <meta property="og:site_name" content="Onikan-Blog" />

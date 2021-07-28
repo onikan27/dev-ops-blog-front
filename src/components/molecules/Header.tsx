@@ -28,25 +28,25 @@ export const Header: React.FC = () => {
             _hover={{ color: '#7d7d7d' }}
             fontSize={{ sm: '14px', md: '18px' }}
           >
-            <Link href={`/topics/app`}>App</Link>
+            <Link href={`/topics/app/1`}>App</Link>
           </Box>
           <Box
             _hover={{ color: '#7d7d7d' }}
             fontSize={{ sm: '14px', md: '18px' }}
           >
-            <Link href={`/topics/infra`}>Infra</Link>
+            <Link href={`/topics/infra/1`}>Infra</Link>
           </Box>
           <Box
             _hover={{ color: '#7d7d7d' }}
             fontSize={{ sm: '14px', md: '18px' }}
           >
-            <Link href={`/topics/devops`}>DevOps</Link>
+            <Link href={`/topics/devops/1`}>DevOps</Link>
           </Box>
           <Box
             _hover={{ color: '#7d7d7d' }}
             fontSize={{ sm: '14px', md: '18px' }}
           >
-            <Link href={`/topics/others`}>Others</Link>
+            <Link href={`/topics/others/1`}>Others</Link>
           </Box>
           {/* onikan.comリンク */}
           <Box

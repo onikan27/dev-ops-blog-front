@@ -31,7 +31,7 @@ export const Pagenation = ({ pathName, totalCount }: PagenationType) => {
               ml="16px"
               fontWeight="bold"
             >
-              <Link href={`${pathName}?page=${number}`}>
+              <Link href={`${pathName}${number}`}>
                 <a>{number}</a>
               </Link>
             </Box>

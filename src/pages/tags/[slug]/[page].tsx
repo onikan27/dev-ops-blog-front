@@ -122,7 +122,8 @@ export const getStaticPaths: GetStaticPaths = async () => {
     [...Array(end - start + 1)].map((_, i) => start + i)
 
   const paths = range(1, Math.ceil(res_json.totalCount / PER_PAGE)).map(
-    (page) => `/tags/${slug}/${page}`,
+    (page) => `/tags/hoge/${page}`,
+    // (page) => `/tags/${slug}/${page}`,
   )
 
   return {

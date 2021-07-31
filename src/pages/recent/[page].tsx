@@ -1,14 +1,16 @@
-import { NextPage, GetStaticProps } from 'next'
+import { NextPage, GetStaticProps, GetStaticPaths } from 'next'
 import { Box, Text, Flex } from '@chakra-ui/react'
 import Head from 'next/head'
 import { DefaultLayout } from 'src/components/layout/DefaultLayout'
 import { MainLayout } from 'src/components/layout/MainLayout'
 import { Articles } from 'src/components/page/articles/Articles'
-import { ArticleType } from 'types'
-import { TagType } from 'types'
 import { ApiKey } from 'utils/api-key'
+import { ArticleType } from 'types'
 import { RightSideBar } from 'src/components/molecules/RightSideBar'
 import { Pagenation } from 'src/components/atoms/pagenation'
+import { TagType } from 'types'
+
+const PER_PAGE = 5
 
 type props = {
   articles: ArticleType[]
@@ -17,7 +19,7 @@ type props = {
   totalArticlesCount: number
 }
 
-const Infra: NextPage<props> = ({
+const Home: NextPage<props> = ({
   articles,
   tags,
   topics,
@@ -26,20 +28,14 @@ const Infra: NextPage<props> = ({
   return (
     <>
       <Head>
-        <title>Onikan-Blog：Infra</title>
-        <meta property="og:site_name" content={`Onikan-Blog：Infra`} />
-        <meta name="twitter:card" content="summary_large_image" />
-        <meta name="twitter:site" content="@1027_onikan" />
-        <meta name="twitter:title" content={`Onikan-Blog：Infra`} />
-        <meta property="og:url" content="https://www.onikan-blog.com/" />
-        <meta property="og:type" content="website" />
+        <title>Onikan-Blog：New</title>
       </Head>
       <DefaultLayout>
         <MainLayout>
           <Flex flexDirection="column">
             <Box mb="32px" ml={{ sm: '8px', md: 0 }}>
               <Text fontSize="32px" fontWeight="bold">
-                Infra
+                New
               </Text>
             </Box>
             <Articles articles={articles} />
@@ -47,7 +43,7 @@ const Infra: NextPage<props> = ({
               <Box mx="auto" mb="16px">
                 <Pagenation
                   totalCount={totalArticlesCount}
-                  pathName={`/topics/infra`}
+                  pathName={`/recent/`}
                 />
               </Box>
             )}
@@ -60,21 +56,18 @@ const Infra: NextPage<props> = ({
 }
 
 export const getStaticProps: GetStaticProps = async (context) => {
-  const page = Number(context?.params?.page ? context?.params?.page : 1)
+  const page = Number(context?.params?.page)
+
   const key = ApiKey()
-  const resTopics = await fetch(
-    `${process.env.NEXT_PUBLIC_ENDPOINT}/topics?filters=name[contains]Infra`,
+  const resArticles = await fetch(
+    `${process.env.NEXT_PUBLIC_ENDPOINT}/articles?offset=${
+      (page - 1) * PER_PAGE
+    }&limit=${PER_PAGE}'`,
     key,
   )
-  const topics = await resTopics.json()
-
-  const articlesPages = topics?.contents[0]?.articles.slice(
-    (page - 1) * 5,
-    (page - 1) * 5 + 5,
-  )
+  const articles = await resArticles.json()
 
   const resTags = await fetch(`${process.env.NEXT_PUBLIC_ENDPOINT}/tags`, key)
-
   const tags = await resTags.json()
 
   const resAllTopics = await fetch(
@@ -86,13 +79,31 @@ export const getStaticProps: GetStaticProps = async (context) => {
 
   return {
     props: {
-      articles: articlesPages,
+      articles: articles.contents,
       tags: tags.contents,
       topics: allTopics.contents,
-      totalArticlesCount: topics?.contents[0]?.articles?.length,
+      totalArticlesCount: articles.totalCount,
     },
     revalidate: 60,
   }
 }
 
-export default Infra
+export const getStaticPaths: GetStaticPaths = async () => {
+  const key = ApiKey()
+  const res = await fetch(`${process.env.NEXT_PUBLIC_ENDPOINT}/articles`, key)
+
+  const res_json = await res.json()
+  const range = (start: number, end: number) =>
+    [...Array(end - start + 1)].map((_, i) => start + i)
+
+  const paths = range(1, Math.ceil(res_json.totalCount / PER_PAGE)).map(
+    (page) => `/recent/${page}`,
+  )
+
+  return {
+    paths,
+    fallback: 'blocking',
+  }
+}
+
+export default Home

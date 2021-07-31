@@ -112,6 +112,7 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
   }
 }
 
+// 全てのslugのpathの作成する
 export const getStaticPaths: GetStaticPaths = async () => {
   const key = ApiKey()
   const res = await fetch(`${process.env.NEXT_PUBLIC_ENDPOINT}/articles`, key)
@@ -121,7 +122,8 @@ export const getStaticPaths: GetStaticPaths = async () => {
     [...Array(end - start + 1)].map((_, i) => start + i)
 
   const paths = range(1, Math.ceil(res_json.totalCount / PER_PAGE)).map(
-    (page) => `/recent/${page}`,
+    (page) => `/tags/hoge/${page}`,
+    // (page) => `/tags/${slug}/${page}`,
   )
 
   return {

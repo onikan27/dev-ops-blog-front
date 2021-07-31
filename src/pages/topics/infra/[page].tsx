@@ -1,12 +1,13 @@
+import { NextPage, GetStaticProps, GetStaticPaths } from 'next'
 import { Box, Text, Flex } from '@chakra-ui/react'
 import Head from 'next/head'
 import { DefaultLayout } from 'src/components/layout/DefaultLayout'
 import { MainLayout } from 'src/components/layout/MainLayout'
-import { ApiKey } from 'utils/api-key'
-import { NextPage, GetServerSideProps, GetStaticPaths } from 'next'
-import { RightSideBar } from 'src/components/molecules/RightSideBar'
-import { ArticleType, TagType } from 'types'
 import { Articles } from 'src/components/page/articles/Articles'
+import { ArticleType } from 'types'
+import { TagType } from 'types'
+import { ApiKey } from 'utils/api-key'
+import { RightSideBar } from 'src/components/molecules/RightSideBar'
 import { Pagenation } from 'src/components/atoms/pagenation'
 
 const PER_PAGE = 5
@@ -15,34 +16,32 @@ type props = {
   articles: ArticleType[]
   tags: TagType[]
   topics: any
-  tagName: string
   totalArticlesCount: number
 }
 
-const App: NextPage<props> = ({
+const Infra: NextPage<props> = ({
   articles,
   tags,
   topics,
-  tagName,
   totalArticlesCount,
 }) => {
   return (
     <>
       <Head>
-        <title>Onikan-Blog：{tagName}</title>
-        <meta property="og:site_name" content={`Onikan-Blog：${tagName}`} />
+        <title>Onikan-Blog：Infra</title>
+        <meta property="og:site_name" content={`Onikan-Blog：Infra`} />
         <meta name="twitter:card" content="summary_large_image" />
         <meta name="twitter:site" content="@1027_onikan" />
-        <meta name="twitter:title" content={`Onikan-Blog：${tagName}`} />
+        <meta name="twitter:title" content={`Onikan-Blog：Infra`} />
         <meta property="og:url" content="https://www.onikan-blog.com/" />
         <meta property="og:type" content="website" />
       </Head>
       <DefaultLayout>
         <MainLayout>
           <Flex flexDirection="column">
-            <Box mb="32px">
+            <Box mb="32px" ml={{ sm: '8px', md: 0 }}>
               <Text fontSize="32px" fontWeight="bold">
-                {tagName}
+                Infra
               </Text>
             </Box>
             <Articles articles={articles} />
@@ -50,7 +49,7 @@ const App: NextPage<props> = ({
               <Box mx="auto" mb="16px">
                 <Pagenation
                   totalCount={totalArticlesCount}
-                  pathName={`/tags/${tagName.toLowerCase()}`}
+                  pathName={`/topics/infra/`}
                 />
               </Box>
             )}
@@ -62,27 +61,16 @@ const App: NextPage<props> = ({
   )
 }
 
-export const getServerSideProps: GetServerSideProps = async (context) => {
-  let tagName = context?.params?.slug as string
-  const page = Number(context?.query?.page ? context?.query?.page : 1)
-  tagName = tagName[0].toUpperCase() + tagName.slice(1)
-  if (tagName === 'Aws') {
-    tagName = 'AWS'
-  } else if (tagName === 'Ts') {
-    tagName = 'TS'
-  } else if (tagName === 'Js') {
-    tagName = 'JS'
-  }
-
+export const getStaticProps: GetStaticProps = async (context) => {
+  const page = Number(context?.params?.page ? context?.params?.page : 1)
   const key = ApiKey()
-  const resTagArticles = await fetch(
-    `${process.env.NEXT_PUBLIC_ENDPOINT}/tags?filters=tagName[contains]${tagName}`,
+  const resTopics = await fetch(
+    `${process.env.NEXT_PUBLIC_ENDPOINT}/topics?filters=name[contains]Infra`,
     key,
   )
+  const topics = await resTopics.json()
 
-  const articles = await resTagArticles.json()
-
-  const articlesPages = articles?.contents[0]?.articles.slice(
+  const articlesPages = topics?.contents[0]?.articles.slice(
     (page - 1) * 5,
     (page - 1) * 5 + 5,
   )
@@ -100,13 +88,10 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
 
   return {
     props: {
-      articles: articlesPages ? articlesPages : null,
-      tags: tags?.contents ? tags?.contents : null,
-      topics: allTopics?.contents ? allTopics?.contents : null,
-      tagName: articles?.contents[0]?.tagName[0]
-        ? articles?.contents[0]?.tagName[0]
-        : null,
-      totalArticlesCount: articles?.contents[0]?.articles?.length,
+      articles: articlesPages,
+      tags: tags.contents,
+      topics: allTopics.contents,
+      totalArticlesCount: topics?.contents[0]?.articles?.length,
     },
     revalidate: 60,
   }
@@ -114,14 +99,20 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
 
 export const getStaticPaths: GetStaticPaths = async () => {
   const key = ApiKey()
-  const res = await fetch(`${process.env.NEXT_PUBLIC_ENDPOINT}/articles`, key)
+  const res = await fetch(
+    `${process.env.NEXT_PUBLIC_ENDPOINT}/topics?filters=name[contains]Infra`,
+    key,
+  )
 
   const res_json = await res.json()
+
+  const articlesPageCount = res_json?.contents[0]?.articles.length
+
   const range = (start: number, end: number) =>
     [...Array(end - start + 1)].map((_, i) => start + i)
 
-  const paths = range(1, Math.ceil(res_json.totalCount / PER_PAGE)).map(
-    (page) => `/recent/${page}`,
+  const paths = range(1, Math.ceil(articlesPageCount / PER_PAGE)).map(
+    (page) => `/topics/infra/${page}`,
   )
 
   return {
@@ -130,4 +121,4 @@ export const getStaticPaths: GetStaticPaths = async () => {
   }
 }
 
-export default App
+export default Infra

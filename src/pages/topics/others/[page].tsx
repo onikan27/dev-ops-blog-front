@@ -1,4 +1,4 @@
-import { NextPage, GetStaticProps } from 'next'
+import { NextPage, GetStaticProps, GetStaticPaths } from 'next'
 import { Box, Text, Flex } from '@chakra-ui/react'
 import Head from 'next/head'
 import { DefaultLayout } from 'src/components/layout/DefaultLayout'
@@ -9,6 +9,8 @@ import { TagType } from 'types'
 import { ApiKey } from 'utils/api-key'
 import { RightSideBar } from 'src/components/molecules/RightSideBar'
 import { Pagenation } from 'src/components/atoms/pagenation'
+
+const PER_PAGE = 5
 
 type props = {
   articles: ArticleType[]
@@ -47,7 +49,7 @@ const Others: NextPage<props> = ({
               <Box mx="auto" mb="16px">
                 <Pagenation
                   totalCount={totalArticlesCount}
-                  pathName={`/topics/other`}
+                  pathName={`/topics/other/`}
                 />
               </Box>
             )}
@@ -92,6 +94,30 @@ export const getStaticProps: GetStaticProps = async (context) => {
       totalArticlesCount: topics?.contents[0]?.articles?.length,
     },
     revalidate: 60,
+  }
+}
+
+export const getStaticPaths: GetStaticPaths = async () => {
+  const key = ApiKey()
+  const res = await fetch(
+    `${process.env.NEXT_PUBLIC_ENDPOINT}/topics?filters=name[contains]Others`,
+    key,
+  )
+
+  const res_json = await res.json()
+
+  const articlesPageCount = res_json?.contents[0]?.articles.length
+
+  const range = (start: number, end: number) =>
+    [...Array(end - start + 1)].map((_, i) => start + i)
+
+  const paths = range(1, Math.ceil(articlesPageCount / PER_PAGE)).map(
+    (page) => `/topics/others/${page}`,
+  )
+
+  return {
+    paths,
+    fallback: 'blocking',
   }
 }
 

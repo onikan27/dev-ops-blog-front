@@ -1,4 +1,4 @@
-import { Text, Image, Box } from '@chakra-ui/react'
+import { Image, Box } from '@chakra-ui/react'
 import Link from 'next/link'
 import { TagType } from 'types'
 
@@ -10,7 +10,7 @@ const Tag: React.FC<props> = ({ tag }) => {
   return (
     <>
       {tag && (
-        <Link href={`/tags/${tag}`}>
+        <Link href={`/tags/${tag}/1`}>
           <Box
             w={{ sm: '40px', md: '35px' }}
             cursor="pointer"

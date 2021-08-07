@@ -1,12 +1,6 @@
-import { NextPage, GetStaticProps } from 'next'
-import { Box, Text, Flex } from '@chakra-ui/react'
+import { NextPage, GetServerSideProps } from 'next'
 import Head from 'next/head'
-import { DefaultLayout } from 'src/components/layout/DefaultLayout'
-import { MainLayout } from 'src/components/layout/MainLayout'
-import { Articles } from 'src/components/page/articles/Articles'
 import { ArticleType } from 'types'
-import { RightSideBar } from 'src/components/molecules/RightSideBar'
-import { Pagenation } from 'src/components/atoms/pagenation'
 import { TagType } from 'types'
 
 type props = {
@@ -26,7 +20,7 @@ const Home: NextPage<props> = () => {
   )
 }
 
-export const getStaticProps: GetStaticProps = async () => {
+export const getServerSideProps: GetServerSideProps = async () => {
   return {
     redirect: {
       permanent: false,

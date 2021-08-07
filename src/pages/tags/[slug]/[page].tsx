@@ -3,7 +3,7 @@ import Head from 'next/head'
 import { DefaultLayout } from 'src/components/layout/DefaultLayout'
 import { MainLayout } from 'src/components/layout/MainLayout'
 import { ApiKey } from 'utils/api-key'
-import { NextPage, GetServerSideProps, GetStaticPaths } from 'next'
+import { NextPage, GetStaticPaths, GetStaticProps } from 'next'
 import { RightSideBar } from 'src/components/molecules/RightSideBar'
 import { ArticleType, TagType } from 'types'
 import { Articles } from 'src/components/page/articles/Articles'
@@ -62,9 +62,9 @@ const App: NextPage<props> = ({
   )
 }
 
-export const getServerSideProps: GetServerSideProps = async (context) => {
+export const getStaticProps: GetStaticProps = async (context) => {
   let tagName = context?.params?.slug as string
-  const page = Number(context?.query?.page ? context?.query?.page : 1)
+  const page = Number(context?.params?.page ? context?.params?.page : 1)
   tagName = tagName[0].toUpperCase() + tagName.slice(1)
   if (tagName === 'Aws') {
     tagName = 'AWS'
@@ -112,19 +112,28 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
   }
 }
 
-// 全てのslugのpathの作成する
 export const getStaticPaths: GetStaticPaths = async () => {
   const key = ApiKey()
-  const res = await fetch(`${process.env.NEXT_PUBLIC_ENDPOINT}/articles`, key)
+  const articles = await fetch(
+    `${process.env.NEXT_PUBLIC_ENDPOINT}/articles`,
+    key,
+  )
+  const tags = await fetch(`${process.env.NEXT_PUBLIC_ENDPOINT}/tags`, key)
 
-  const res_json = await res.json()
+  const articles_json = await articles.json()
+  const tags_json = await tags.json()
+
   const range = (start: number, end: number) =>
     [...Array(end - start + 1)].map((_, i) => start + i)
 
-  const paths = range(1, Math.ceil(res_json.totalCount / PER_PAGE)).map(
-    (page) => `/tags/hoge/${page}`,
-    // (page) => `/tags/${slug}/${page}`,
-  )
+  const paths: string[] = []
+
+  tags_json.contents.map((tag: any) => {
+    const elementPath = range(1, Math.ceil(tag.articles.length / PER_PAGE)).map(
+      (page) => `/tags/${tag.tagName}/${page}`,
+    )
+    paths.push(...elementPath)
+  })
 
   return {
     paths,

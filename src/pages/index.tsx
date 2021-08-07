@@ -1,4 +1,4 @@
-import { NextPage, GetStaticProps } from 'next'
+import { NextPage, GetServerSideProps } from 'next'
 import Head from 'next/head'
 import { ArticleType } from 'types'
 import { TagType } from 'types'
@@ -20,7 +20,7 @@ const Home: NextPage<props> = () => {
   )
 }
 
-export const getStaticProps: GetStaticProps = async () => {
+export const getServerSideProps: GetServerSideProps = async () => {
   return {
     redirect: {
       permanent: false,

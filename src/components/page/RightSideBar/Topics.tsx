@@ -20,7 +20,7 @@ export const Topics: React.FC<topicsType> = ({ topics }) => {
         {topics.map((topic) => {
           return (
             <Link
-              href={`/topics/${topic.name[0].toLowerCase()}`}
+              href={`/topics/${topic.name[0].toLowerCase()}/1`}
               key={topic.name}
             >
               <Box

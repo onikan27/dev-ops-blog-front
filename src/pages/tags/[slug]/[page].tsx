@@ -50,7 +50,7 @@ const App: NextPage<props> = ({
               <Box mx="auto" mb="16px">
                 <Pagenation
                   totalCount={totalArticlesCount}
-                  pathName={`/tags/${tagName.toLowerCase()}`}
+                  pathName={`/tags/${tagName.toLowerCase()}/`}
                 />
               </Box>
             )}

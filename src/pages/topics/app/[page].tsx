@@ -70,10 +70,17 @@ export const getStaticProps: GetStaticProps = async (context) => {
   )
   const topics = await resTopics.json()
 
-  const articlesPages = topics?.contents[0]?.articles.slice(
-    (page - 1) * 5,
-    (page - 1) * 5 + 5,
-  )
+  const topicsAry = topics?.contents[0]?.articles
+
+  topicsAry.sort((el: ArticleType, comparison: ArticleType) => {
+    if (el.publishedAt < comparison.publishedAt) {
+      return 1
+    } else {
+      return -1
+    }
+  })
+
+  const articlesPages = topicsAry.slice((page - 1) * 5, (page - 1) * 5 + 5)
 
   const resTags = await fetch(`${process.env.NEXT_PUBLIC_ENDPOINT}/tags`, key)
 

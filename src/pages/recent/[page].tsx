@@ -62,7 +62,7 @@ export const getStaticProps: GetStaticProps = async (context) => {
   const resArticles = await fetch(
     `${process.env.NEXT_PUBLIC_ENDPOINT}/articles?offset=${
       (page - 1) * PER_PAGE
-    }&limit=${PER_PAGE}'`,
+    }&limit=${PER_PAGE}&orders=-publishedAt`,
     key,
   )
   const articles = await resArticles.json()

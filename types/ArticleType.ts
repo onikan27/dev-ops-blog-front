@@ -3,6 +3,7 @@ export type ArticleType = {
   title: string
   createdAt: string
   updatedAt: string
+  publishedAt: string
   body: string
   description: string
   thumbnail: {

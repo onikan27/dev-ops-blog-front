@@ -5,6 +5,7 @@ import { ArticleType } from 'types'
 import styles from 'src/styles/components/page/articles/contents.module.scss'
 import javascript from 'highlight.js/lib/languages/javascript'
 import Tag from 'src/components/atoms/Tag'
+import dayjs from 'dayjs'
 
 type props = {
   article: ArticleType
@@ -28,6 +29,11 @@ export const Contents: React.FC<props> = ({ article }) => {
       >
         <Box fontSize={{ sm: '24px', md: '28px' }} fontWeight="bold" mb="16px">
           <h1>{article?.title}</h1>
+        </Box>
+        <Box mb="16px">
+          <Text fontWeight="700">
+            {dayjs(article.publishedAt).format('YYYY/MM/DD (dd)  HH:mm')}
+          </Text>
         </Box>
         <Box mb="16px">
           <Text color="text.gray">{article.description}</Text>

@@ -81,11 +81,17 @@ export const getStaticProps: GetStaticProps = async (context) => {
   )
 
   const articles = await resTagArticles.json()
+  const articlesAry = articles?.contents[0]?.articles
 
-  const articlesPages = articles?.contents[0]?.articles.slice(
-    (page - 1) * 5,
-    (page - 1) * 5 + 5,
-  )
+  articlesAry.sort((el: ArticleType, comparison: ArticleType) => {
+    if (el.publishedAt < comparison.publishedAt) {
+      return 1
+    } else {
+      return -1
+    }
+  })
+
+  const articlesPages = articlesAry.slice((page - 1) * 5, (page - 1) * 5 + 5)
 
   const resTags = await fetch(`${process.env.NEXT_PUBLIC_ENDPOINT}/tags`, key)
 
@@ -114,13 +120,8 @@ export const getStaticProps: GetStaticProps = async (context) => {
 
 export const getStaticPaths: GetStaticPaths = async () => {
   const key = ApiKey()
-  const articles = await fetch(
-    `${process.env.NEXT_PUBLIC_ENDPOINT}/articles`,
-    key,
-  )
   const tags = await fetch(`${process.env.NEXT_PUBLIC_ENDPOINT}/tags`, key)
 
-  const articles_json = await articles.json()
   const tags_json = await tags.json()
 
   const range = (start: number, end: number) =>

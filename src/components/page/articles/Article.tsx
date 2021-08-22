@@ -51,7 +51,7 @@ export const Article: React.FC<props> = ({ article }) => {
           </Flex>
           <Box position="absolute" right="16px" bottom="8px">
             <Text fontSize="12px" color="text.gray">
-              {dayjs(article.updatedAt).format('YYYY/MM/DD (dd)  HH:mm')}
+              {dayjs(article.publishedAt).format('YYYY/MM/DD (dd)  HH:mm')}
             </Text>
           </Box>
         </Box>

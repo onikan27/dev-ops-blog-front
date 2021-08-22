@@ -58,7 +58,7 @@ const Home: NextPage<props> = ({
 export const getStaticProps: GetStaticProps = async () => {
   const key = ApiKey()
   const resArticles = await fetch(
-    `${process.env.NEXT_PUBLIC_ENDPOINT}/articles?limit=${PER_PAGE}'`,
+    `${process.env.NEXT_PUBLIC_ENDPOINT}/articles?limit=${PER_PAGE}`,
     key,
   )
   const articles = await resArticles.json()
